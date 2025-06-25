@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.counter-container {
+    display: flex;
+    width: 200px;
+    gap: 8px;
+}
+
+button {
+    width: 40px;
+}
