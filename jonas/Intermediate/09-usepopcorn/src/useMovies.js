@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 
 const KEY = "9ab3a319";
 
-export function useMovies(query, callback) {
+export function useMovies(query) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(
     function () {
-      callback?.(); // solo se invoca si existe
+      //callback?.(); // solo se invoca si existe
 
       const controller = new AbortController();
 
