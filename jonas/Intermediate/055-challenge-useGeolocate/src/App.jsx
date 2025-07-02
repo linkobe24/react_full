@@ -1,18 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function useGeolocation() {}
+// function useGeolocation(click) {
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [position, setPosition] = useState({});
+//   const [error, setError] = useState(null);
 
-export default function App() {
+//   useEffect(() => {
+//     if (click <= 0) return;
+//     if (!navigator.geolocation)
+//       return setError("Your browser does not support geolocation");
+
+//     setIsLoading(true);
+//     navigator.geolocation.getCurrentPosition(
+//       (pos) => {
+//         setPosition({
+//           lat: pos.coords.latitude,
+//           lng: pos.coords.longitude,
+//         });
+//         setIsLoading(false);
+//       },
+//       (error) => {
+//         setError(error.message);
+//         setIsLoading(false);
+//       }
+//     );
+//   }, [click]);
+
+//   return { isLoading, position, error };
+// }
+
+function useGeolocation() {
   const [isLoading, setIsLoading] = useState(false);
-  const [countClicks, setCountClicks] = useState(0);
   const [position, setPosition] = useState({});
   const [error, setError] = useState(null);
 
-  const { lat, lng } = position;
-
   function getPosition() {
-    setCountClicks((count) => count + 1);
-
     if (!navigator.geolocation)
       return setError("Your browser does not support geolocation");
 
@@ -32,9 +54,28 @@ export default function App() {
     );
   }
 
+  return { isLoading, position, error, getPosition };
+}
+
+export default function App() {
+  const [countClicks, setCountClicks] = useState(0);
+  const {
+    isLoading,
+    position: { lat, lng },
+    error,
+    getPosition,
+  } = useGeolocation();
+
+  // const { lat, lng } = position;
+
+  function handleClick() {
+    setCountClicks((count) => count + 1);
+    getPosition();
+  }
+
   return (
     <div>
-      <button onClick={getPosition} disabled={isLoading}>
+      <button onClick={handleClick} disabled={isLoading}>
         Get my position
       </button>
 
