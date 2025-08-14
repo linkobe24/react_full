@@ -13,7 +13,7 @@ const cartSlice = createSlice({
       state.cart.push(action.payload);
     },
     deleteItem(state, action) {
-      state.cart.filter((item) => item.pizzaId !== action.payload);
+      state.cart = state.cart.filter((item) => item.pizzaId !== action.payload);
     },
     increaseItemQuantity(state, action) {
       const item = state.cart.find((item) => item.pizzaId === action.payload);
@@ -44,8 +44,15 @@ export default cartSlice.reducer;
 // tener muchos getter puede arruinar el rendimiento si son demasiados
 // investiga reselect
 // getter inica con get siempre
+// selectors
+
+export const getCart = (store) => store.cart.cart;
+
 export const getTotalCartQuantity = (store) =>
   store.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
 
 export const getTotalCartPrice = (store) =>
   store.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+
+export const getCurrrentQuantityById = (id) => (store) =>
+  store.cart.cart.find((item) => item.pizzaId === id)?.quantity ?? 0;
