@@ -24,6 +24,29 @@ export const getToday = function (options = {}) {
   return today.toISOString();
 };
 
+// export const getTodayRange = () => {
+//   const start = new Date();
+//   start.setUTCHours(0, 0, 0, 0);
+
+//   const end = new Date();
+//   end.setUTCHours(23, 59, 59, 999);
+
+//   return {
+//     start: start.toISOString(),
+//     end: end.toISOString(),
+//   };
+// };
+
+export const getTodayRangeUTC = () => {
+  const start = new Date();
+  start.setUTCHours(0, 0, 0, 0);
+
+  const end = new Date();
+  end.setUTCHours(23, 59, 59, 999);
+
+  return { start: start.toISOString(), end: end.toISOString() };
+};
+
 export const formatCurrency = (value) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
     value

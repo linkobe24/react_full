@@ -1,5 +1,5 @@
 import { PAGE_SIZE } from "../utils/constants";
-import { getToday } from "../utils/helpers";
+import { getToday, getTodayRangeUTC } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getBookings({ filter, sortBy, page }) {
@@ -102,6 +102,7 @@ export async function getStaysTodayActivity() {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
+
   return data;
 }
 
